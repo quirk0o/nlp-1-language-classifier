@@ -55,4 +55,6 @@ class LVec(object):
         key_set.update(other.vec.keys())
         numerator = sum([self.vec[k] * other.vec[k] for k in key_set])
         denominator = self.len() * other.len()
+        if denominator == 0:
+            return float('inf')
         return 1 - numerator / denominator
