@@ -1,7 +1,6 @@
 from collections import Counter, defaultdict
 import math
 
-
 MIN_OCCURENCES = 0.01
 
 
@@ -39,8 +38,8 @@ class LVec(object):
             n=self.n
         )
 
-    def __len__(self):
-        math.sqrt(sum([x ** 2 for x in self.vec.values()]))
+    def len(self):
+        return math.sqrt(sum([x ** 2 for x in self.vec.values()]))
 
     def __str__(self):
         common_items = filter(lambda (k, v): v > MIN_OCCURENCES, self.vec.items())
@@ -50,11 +49,10 @@ class LVec(object):
             return '{}\n... {} less common ngrams'.format(items_str, len(other_items))
         return items_str
 
-
-    def cos_distance(self, other):
+    def cos_dist(self, other):
         key_set = set()
         key_set.update(self.vec.keys())
         key_set.update(other.vec.keys())
         numerator = sum([self.vec[k] * other.vec[k] for k in key_set])
-        denominator = len(self) * len(other)
+        denominator = self.len() * other.len()
         return 1 - numerator / denominator
