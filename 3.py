@@ -1,19 +1,10 @@
 # coding=utf-8
-import os
-import pickle
-import json
-
-from collections import defaultdict
 
 from classifier import *
-from ngram_builder import build_language_vector
+from lcache import LCache
 from statistics import *
 
-CONFIG_FILE = 'samples.json'
-
 if __name__ == '__main__':
-    with open(CONFIG_FILE) as config:
-        languages = json.load(config)
 
     sample_sentences = [
         (u'Polish', u'To jest przykladowy tekst. Zostanie wykorzystany do przeanalizowania dzialania klasyfikatora'),
@@ -27,27 +18,17 @@ if __name__ == '__main__':
         (u'Finnish', u'Tämä on näyte lause. Sitä käytetään kielen luokitin testejä.'),
         (u'English', u'Sally sells sea shells by the sea shore')
     ]
-    classification = map(lambda sentence: sentence[0], sample_sentences)
+    classification = map(lambda s: s[0], sample_sentences)
 
     for n in xrange(1, 12):
         print 'Building language data for n {}'.format(n)
-
-        for language, data in languages.items():
-            cache_file = 'cache/{}{}.data'.format(language.lower(), n)
-            if os.path.exists(cache_file):
-                with open(cache_file) as cache:
-                    data['vec'] = LVec(vec=defaultdict(lambda: 0.0, pickle.load(cache)))
-            else:
-                vec = build_language_vector(n, data['samples'])
-                data['vec'] = vec
-
-                with open(cache_file, 'wb') as cache:
-                    pickle.dump(vec.vec.items(), cache)
+        language_cache = LCache()
+        languages = language_cache.build_language_vectors(n)
 
         classifier = LanguageClassifier(n, languages)
         guesses = []
 
-        for sentence in map(lambda sentence: sentence[1], sample_sentences):
+        for sentence in map(lambda s: s[1], sample_sentences):
             guess = classifier.determine_language(sentence)
             guesses.append(guess)
 

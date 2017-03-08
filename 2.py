@@ -1,22 +1,19 @@
 import os
 import pickle
 import sys
-import json
 
 from collections import defaultdict
 
 from classifier import *
+from lcache import LCache
 from ngram_builder import build_language_vector
 
-CONFIG_FILE = 'samples.json'
-
 if __name__ == '__main__':
-    with open(CONFIG_FILE) as config:
-        languages = json.load(config)
-
     n = int(sys.argv[1])
 
     print 'Building language data...'
+    language_cache = LCache()
+    languages = language_cache.build_language_vectors(n)
 
     for language, data in languages.items():
         cache_file = 'cache/{}{}.data'.format(language.lower(), n)
