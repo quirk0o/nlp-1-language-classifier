@@ -1,0 +1,43 @@
+{
+  "Polish": {
+    "samples": [
+      "samples/polish1.txt",
+      "samples/polish2.txt",
+      "samples/polish3.txt"
+    ]
+  },
+  "English": {
+    "samples": [
+      "samples/english1.txt",
+      "samples/english2.txt",
+      "samples/english3.txt",
+      "samples/english4.txt"
+    ]
+  },
+  "German": {
+    "samples": [
+      "samples/german1.txt",
+      "samples/german2.txt",
+      "samples/german3.txt",
+      "samples/german4.txt"
+    ]
+  },
+  "Italian": {
+    "samples": [
+      "samples/italian1.txt",
+      "samples/italian2.txt"
+    ]
+  },
+  "Spanish": {
+    "samples": [
+      "samples/spanish1.txt",
+      "samples/spanish2.txt"
+    ]
+  },
+  "Finnish": {
+    "samples": [
+      "samples/finnish1.txt",
+      "samples/finnish2.txt"
+    ]
+  }
+}

@@ -2,7 +2,7 @@ from collections import Counter, defaultdict
 import math
 
 
-MIN_OCCURENCES = 0.0001
+MIN_OCCURENCES = 0.01
 
 
 class LVec(object):
